@@ -36,7 +36,7 @@ defmodule Dictionary.Impl.WordList do
   @spec is_known_word?(t, String.t) :: boolean
   def is_known_word?(word_list, word) do
     word_list.all_words
-    |> MapSet.member?(word)
+    |> MapSet.member?(word |> String.upcase(:ascii))
   end
 
 

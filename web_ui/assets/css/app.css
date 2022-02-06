@@ -1,0 +1,147 @@
+/* This file is for your main application CSS */
+@import "./phoenix.css";
+
+body {
+  background: #888;
+}
+
+.game-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.guess-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.grid-row {
+  display: flex;
+  flex-dire4ction: row;
+  height: 7rem;
+  gap: 1rem;
+}
+
+.grid-row .cell {
+  display: block;
+  margin-right: 0.5rem;
+  height: 100%;
+  width: 6rem;
+  border: 2px solid #888;
+  border-radius: 0.5rem;
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.grid-row .cell span {
+  display: inline-block;
+  position: relative;
+  top: -0.7rem;
+}
+
+.grid-row .cell.input {
+  background: #efe;
+}
+
+.grid-row .cell.nothing {
+  background: #f8f8f8;
+}
+
+.grid-row .cell.empty {
+  background: #ffffff;
+}
+
+.grid-row .cell.exact_match {
+  background: #8e8;
+}
+
+.grid-row .cell.inexact_match {
+  background: #ffff31
+}
+
+#keyboard {
+  font-size: 1.5rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#keyboard .kb-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#keyboard .letter {
+  display: inline-block;
+  width: 4rem;
+  border-radius: 1rem;
+  border: 0.5px solid #555;
+  background: #666;
+  color: #eee;
+  text-align: center;
+  padding: 0.25rem;
+}
+
+#keyboard .letter.inexact_match {
+  background: #fada5e;
+  color: #541;
+}
+
+#keyboard .letter.exact_match {
+  background: #8ada5e;
+  color: #541;
+}
+
+#keyboard .letter.nothing {
+  background: #333;
+  color: #aaa;
+}
+
+#keyboard .letter:hover {
+  color: #fff;
+  background: #555;
+  transition: background-color 0.3s;
+}
+
+#keyboard .letter.wide {
+  width: 6rem;
+}
+
+#keyboard .letter.small {
+  font-size: 80%;
+}
+
+#keyboard .letter.disabled {
+  color: #888;
+}
+
+
+.status {
+  font-size: 3rem;
+  width: 50%;
+  text-align: center;
+  vertical-align: middle;
+  padding: 1rem;
+  background: #444;
+  color: #aaa;
+}
+
+.status.won {
+  color: #8D8;
+}
+
+.status.lost {
+  color: #D88;
+}
+
+.status.already-used {
+  color: #da0;
+}
+
