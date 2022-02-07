@@ -146,7 +146,7 @@ defmodule GameLogicImplGameTest do
 
   test "initial alphabet has no matches" do
     game = Game.new_game("KOALA")
-    @alphabet |> Enum.each(fn letter -> assert game.alphabet[letter] == :nothing end) 
+    @alphabet |> Enum.each(fn letter -> assert game.alphabet[letter] == :unused end) 
   end
   
   test "alphabet reflects matches" do

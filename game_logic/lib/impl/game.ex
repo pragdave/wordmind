@@ -136,29 +136,35 @@ defmodule GameLogic.Impl.Game do
   # occurence of the letter from the target list.
 
   defp score_yellow_matches(gtr) do
-    gtr 
-    |> Enum.map(fn ({_g, t, _r}) -> t end) 
-    |> Enum.reject(&(&1 == :used_target))
-    |> score_guess_letter_in_remaining(gtr, [])
+    remaining_targets = unmatched_targets_in(gtr) 
+    {_, score} = Enum.reduce(gtr, {remaining_targets, []}, &eliminate_inexact_match/2)
+    score
+    |> Enum.map(&elem(&1, 2))  # convert { g, t, r } to r
     |> Enum.reverse
   end
 
-  defp score_guess_letter_in_remaining(_, [], result) do 
-    result
+  # If the guess is part of an exact match, it can't also be 
+  # inexact
+  defp eliminate_inexact_match(matching_entry = {_, _, :exact_match}, {remaining_target, result}) do
+    { remaining_target, [ matching_entry | result ] }
   end
 
-  defp score_guess_letter_in_remaining(remaining, [ {g, _t, r} | rest], result) do
-    case Enum.find_index(remaining, &(&1 == g)) do 
-      nil ->
-        score_guess_letter_in_remaining(remaining, rest, [ r | result ])
-      match_index ->
-        score_guess_letter_in_remaining(
-          remaining |> List.delete_at(match_index),
-          rest,
-          [ :inexact_match | result ]
-        )
+  defp eliminate_inexact_match({guess, t, r}, {remaining_target, result}) do
+    if guess in remaining_target do
+      { remaining_target -- [ guess], [ {guess, t, :inexact_match} | result] }
+    else
+      { remaining_target, [ { guess, t, r } | result ]}
     end
   end
+
+  defp unmatched_targets_in(gtr) do
+    gtr 
+    |> Enum.reject(fn ({ _g, _t, r }) -> r == :exact_match end)
+    |> Enum.map(&elem(&1, 1))
+  end
+
+
+  ###############################################################
 
   @spec tally(t) :: Type.tally
   def tally(game) do
